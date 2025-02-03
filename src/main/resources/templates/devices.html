@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Devices</title>
+</head>
+<body>
+
+<div th:if="${message}">
+    <p th:text="${message}"></p>
+</div>
+
+<table border="1">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Status</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="device : ${devices}">
+        <td th:text="${device.deviceId}"></td>
+        <td th:text="${device.deviceName}"></td>
+        <td th:text="${device.type}"></td>
+        <td th:text="${device.status}"
+            th:style="${device.status.name() == 'OFF' ? 'color: red;' : 'color: green;'}"></td>
+        <td>
+            <form th:action="@{/device/{id}(id=${device.deviceId})}" th:method="get">
+                <button type="submit">View</button>
+            </form>
+            <form
+                    th:if="${device.status.name() == 'OFF'}"
+                    th:action="@{/device/on/{id}(id=${device.deviceId})}"
+                    method="post"
+            >
+                <input type="hidden" name="_method" value="PUT"/>
+                <input type="hidden" name="status" th:value="ON" required/>
+                <button type="submit">Turn ON</button>
+            </form>
+            <form
+                    th:if="${device.status.name() == 'ON'}"
+                    th:action="@{/device/off/{id}(id=${device.deviceId})}"
+                    method="post"
+            >
+                <input type="hidden" name="_method" value="PUT"/>
+                <input type="hidden" name="status" th:value="OFF" required/>
+                <button type="submit" >Turn OFF</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<a th:href="@{/schedule}">Set Schedule</a>
+
+</body>
+</html>

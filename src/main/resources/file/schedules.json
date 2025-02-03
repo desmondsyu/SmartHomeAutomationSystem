@@ -1,0 +1,26 @@
+[
+  {
+    "scheduleId": 1,
+    "action": "ON",
+    "time": "18:00",
+    "deviceId": 1
+  },
+  {
+    "scheduleId": 2,
+    "action": "OFF",
+    "time": "08:07",
+    "deviceId": 1
+  },
+  {
+    "scheduleId": 3,
+    "action": "ON",
+    "time": "18:00",
+    "deviceId": 2
+  },
+  {
+    "scheduleId": 4,
+    "action": "OFF",
+    "time": "02:00",
+    "deviceId": 2
+  }
+]

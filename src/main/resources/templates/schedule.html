@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Schedule</title>
+</head>
+<body>
+<a th:href="@{/device}">Back to Devices</a>
+
+<div th:if="${message}">
+    <p th:text="${message}"></p>
+</div>
+
+<table border="1">
+    <thead>
+    <tr>
+        <th>Device</th>
+        <th>Action</th>
+        <th>Time</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="schedule : ${schedules}">
+        <td th:text="${schedule.deviceId}"></td>
+        <td th:text="${schedule.action}"></td>
+        <td>
+            <form th:action="@{/schedule/{id}(id=${schedule.scheduleId})}" method="post">
+                <input type="hidden" name="_method" value="PUT"/>
+                <input type="time" name="time" th:value="${schedule.time}" step="60" required/>
+                <button type="submit">Set</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

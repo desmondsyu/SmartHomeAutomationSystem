@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Device Control</title>
+</head>
+<body>
+<a th:href="@{/device}">Back to Devices</a>
+<p th:text="'Device: ' + ${device.deviceName}"></p>
+<p th:text="'Type: ' + ${device.type}"></p>
+<p th:text="'Current Status: ' + ${device.status}"></p>
+<form th:action="@{/device/{action}/{id}(id=${device.deviceId}, action=${device.status.name() == 'OFF' ? 'on' : 'off'})}"
+      method="post">
+    <input type="hidden" name="_method" value="PUT"/>
+    <input type="hidden" name="status" th:value="@{${device.status.name() == 'OFF' ? 'ON' : 'OFF' }}" required/>
+    <button type="submit" th:text="${device.status.name() == 'OFF' ? 'Turn ON' : 'Turn OFF'}"></button>
+</form>
+</body>
+</html>
